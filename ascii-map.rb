@@ -69,4 +69,4 @@ class AsciiMap < Formula
   test do
     system "#{bin}/ascii-map", "--help"
   end
-end
+
