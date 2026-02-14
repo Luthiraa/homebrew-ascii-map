@@ -3,8 +3,8 @@ class AsciiMap < Formula
 
   desc "Terminal-based ASCII map explorer"
   homepage "https://github.com/Luthiraa/ascii-map"
-  url "https://github.com/Luthiraa/ascii-map/archive/v0.1.3.tar.gz"
-  sha256 "980df1b6b62bda21d4da030fb696081863f0fc027b1d8a49c7927f48ad84453d"
+  url "https://github.com/Luthiraa/ascii-map/archive/v0.1.4.tar.gz"
+  sha256 "1b08d3bfaa01e514dafa1a094a310fdc51bfa9a8b98426f5da58181e19606c96"
   license "MIT"
 
   depends_on "python@3.11"
