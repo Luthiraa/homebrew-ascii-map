@@ -3,8 +3,8 @@ class AsciiMap < Formula
 
   desc "Terminal-based ASCII map explorer"
   homepage "https://github.com/Luthiraa/ascii-map"
-  url "https://github.com/Luthiraa/ascii-map/archive/v0.1.1.tar.gz"
-  sha256 "19b692041e49a382f627fe01ff88401a3f5430dd1c23ecafe389b8c3039e1203"
+  url "https://github.com/Luthiraa/ascii-map/archive/v0.1.2.tar.gz"
+  sha256 "91a78815e0148500594e1cde40767747665f1fbdc11ce572af46c88584c63057"
   license "MIT"
 
   depends_on "python@3.11"
@@ -37,8 +37,9 @@ class AsciiMap < Formula
     sha256 "1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed"
   end
 
-  # REMOVED: numpy, shapely, pyclipper
-
+  # Restored: numpy is STILL REMOVED (not needed by mapbox-vector-tile according to its Setup.py usually, but shapely IS)
+  # Actually, let's keep numpy removed for now unless we see an error for it.
+  
   resource "mapbox-vector-tile" do
     url "https://files.pythonhosted.org/packages/e9/e0/b511bd7433105d363f37bb83f00a6e15502b04ebcec68c25e3da630d2b53/mapbox_vector_tile-2.2.0.tar.gz"
     sha256 "9fbf2e94890429ccdaf8e047019dccadd9deb03f5b2ae9b5c5561d27a20a0eb3"
@@ -47,6 +48,16 @@ class AsciiMap < Formula
   resource "protobuf" do
     url "https://files.pythonhosted.org/packages/ba/25/7c72c307aafc96fa87062aa6291d9f7c94836e43214d43722e86037aac02/protobuf-6.33.5.tar.gz"
     sha256 "6ddcac2a081f8b7b9642c09406bc6a4290128fce5f471cddd165960bb9119e5c"
+  end
+
+  resource "pyclipper" do
+    url "https://files.pythonhosted.org/packages/f6/21/3c06205bb407e1f79b73b7b4dfb3950bd9537c4f625a68ab5cc41177f5bc/pyclipper-1.4.0.tar.gz"
+    sha256 "9882bd889f27da78add4dd6f881d25697efc740bf840274e749988d25496c8e1"
+  end
+
+  resource "shapely" do
+    url "https://files.pythonhosted.org/packages/4d/bc/0989043118a27cccb4e906a46b7565ce36ca7b57f5a18b78f4f1b0f72d9d/shapely-2.1.2.tar.gz"
+    sha256 "2ed4ecb28320a433db18a5bf029986aa8afcfd740745e78847e330d5d94922a9"
   end
 
   def install
