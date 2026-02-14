@@ -8,9 +8,9 @@ class AsciiMap < Formula
   license "MIT"
 
   depends_on "python@3.11"
-  depends_on "numpy" # Use system numpy (fast)
+  depends_on "numpy"
 
-  # Binary wheels with nounzip to prevent Homebrew from unpacking them
+  # Binary wheels with nounzip
   
   resource "certifi" do
     url "https://files.pythonhosted.org/packages/e6/ad/3cc14f097111b4de0040c83a525973216457bbeeb63739ef1ed275c1c021/certifi-2026.1.4-py3-none-any.whl", using: :nounzip
@@ -58,25 +58,21 @@ class AsciiMap < Formula
   end
 
   def install
-    # 1. Create venv with system site packages (for numpy)
     venv = virtualenv_create(libexec, "python3.11", system_site_packages: true)
     
-    # 2. Manual resource installation to support wheels
     resources.each do |r|
       r.stage do
         if r.url.end_with?(".whl")
-          # Install wheel directly
-          # --no-deps because we verify deps manually, --no-compile for speed
-          system libexec/"bin/pip", "install", "--no-deps", "--no-compile", r.cached_download
+          # Copy wheel to current directory to ensure simple path
+          cp r.cached_download, r.cached_download.basename
+          # Install using --ignore-installed to bypass system packages errors
+          system libexec/"bin/pip", "install", "--no-deps", "--no-compile", "--ignore-installed", r.cached_download.basename
         else
-          # Fallback for sdists (unlikely in this config)
-          system libexec/"bin/pip", "install", "--no-deps", "--no-compile", "."
+          system libexec/"bin/pip", "install", "--no-deps", "--no-compile", "--ignore-installed", "."
         end
       end
     end
 
-    # 3. Install the app itself
-    # We use pip_install_and_link which is standard and safe for the main app
     venv.pip_install_and_link buildpath
   end
 
